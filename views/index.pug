@@ -4,37 +4,32 @@ html
     script(src='dragdrop.js')
   body(class=className)
     h1 MAPSAW 
-    h4 node express pug
-    h5 maps from maptiler nasa
-    p TO
-    - var id=1000
-    table
+    h3 node express pug
+    h5 mapsaw map tiles from https://tileserver.maptiler.com/nasa/
+    - var id = 100
+    p DEST
+    table(style="border-collapse:collapse")
       each r in images1
         tr
           each c in r
-            td
+            td(style="padding:0")
               if c
-                div
-                  img(id=id++ src=c height=80 width=80)
+                img(id=id++ src=c height=80 width=80)
               else
-                  img(id=id++ src='' height=80 width=80 
-                      ondragenter="odragenter(event)"
-                      ondragover="odragover(event)"
-                      ondrop="odrop(event)"
-                    ) 
-    p FROM 
-    table
+                img(id=id++ src='' height=80 width=80
+                  ondragover="on_dragover(event)"
+                  ondrop="on_drop(event)"
+                ) 
+    p SOURCE 
+    table(style="border-collapse:collapse")
       each r in images2
         tr
           each c in r
             td
               img(id=id++ src=c height=80 width=80 
-                draggable=true 
-                ondrag="odrag(event)"
-                ondragstart="odragstart(event)"
+                ondragstart="on_dragstart(event)"
               )
 
-    //include the Glitch button to show what the webpage is about and to make it easier for folks to view source and remix
+    // include the Glitch button to show what the webpage is about and to make it easier for folks to view source and remix
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-
     script(src="https://button.glitch.me/button.js")

@@ -2,7 +2,7 @@ MAPSAW
 
 node express pug
 
-maps from maptiler nasa
+mapsaw map tiles from maptiler nasa https://tileserver.maptiler.com/nasa/
 
 Refs
 

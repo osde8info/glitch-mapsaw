@@ -2,7 +2,11 @@ MAPSAW
 
 node express pug
 
-maps from maptiler nasa
+mapsaw map tiles from maptiler nasa https://tileserver.maptiler.com/nasa/
+
+edit .ENV 
+
+add MAPTILE_KEY=yourkey
 
 see it running on glitch @
 

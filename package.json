@@ -1,7 +1,7 @@
 {
-  "name": "pug-express",
-  "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "name": "mapsaw",
+  "version": "0.0.2",
+  "description": "map jigsaw puzzle game",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -15,12 +15,14 @@
     "node": "11.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/pug-express"
+    "url": "https://glitch.com/edit/#!/mapsaw"
   },
   "license": "MIT",
   "keywords": [
     "node",
     "glitch",
-    "express"
+    "express",
+    "pug",
+    "game"
   ]
 }

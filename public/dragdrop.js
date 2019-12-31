@@ -1,26 +1,19 @@
-function odrag(ev) {
-  console.log("drag");
+function on_dragstart(ev) {
+  ev.dataTransfer.setData("text/plain", ev.target.id);
 }
 
-function odragstart(ev) {
-  console.log("start");
-  ev.dataTransfer.setData("id", ev.target.id);
-}
-
-function odragenter(ev) {
-  console.log("enter");
-}
-
-function odragover(ev) {
+function on_dragover(ev) {
   ev.preventDefault();
 }
 
-function odrop(ev) {
-  console.log("drop");
+function on_drop(ev) {
   ev.preventDefault();
-  var id = ev.dataTransfer.getData("id");
-  var source = document.getElementById(id);
-  ev.target.src=source.src;
-  source.src='';
-  
+  var id = ev.dataTransfer.getData("text/plain");
+  if (id) {
+    var source = document.getElementById(id);
+    if (source) {
+      ev.target.src = source.src;
+      source.src = "";
+    }
+  }
 }

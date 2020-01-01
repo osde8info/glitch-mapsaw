@@ -1,6 +1,6 @@
 {
   "name": "mapsaw",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "map jigsaw puzzle game",
   "main": "server.js",
   "scripts": {

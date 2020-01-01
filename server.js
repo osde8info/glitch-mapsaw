@@ -28,11 +28,11 @@ async function getAqi() {
       ["https://tileserver.maptiler.com/nasa/", 5, 8, 14, ".png"],
       ["https://api.maptiler.com/tiles/satellite/", 5, 8, 14, ".jpg" + key],
       ["https://api.maptiler.com/tiles/satellite/", 6, 12, 14, ".jpg" + key],
-      ["https://api.maptiler.com/tiles/satellite/", 6, 18, 33, ".jpg" + key]
+      ["https://api.maptiler.com/tiles/satellite/", 6, 18, 33, ".jpg" + key],
       ["https://api.maptiler.com/tiles/satellite/", 12, 1986, 3474, ".jpg" + key],
     ];
 
-    var svr = maptiles[Math.floor(Math.random() * (maptiles.length - 1))];
+    var svr = maptiles[Math.floor(Math.random() * maptiles.length)];
 
     var prefix = svr[0];
     var z = svr[1];

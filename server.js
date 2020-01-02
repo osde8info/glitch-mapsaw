@@ -19,6 +19,8 @@ app.get("/", async (_, res) => {
 async function getAqi() {
   let aqi = {};
 
+  const nasatiles='https://tileserver.maptiler.com/nasa/'
+  const satetiles='https://api.maptiler.com/tiles/satellite/'
   const width=5
   const height=4
   
@@ -26,14 +28,18 @@ async function getAqi() {
 
   try {
     var maptiles = [
-      ["https://tileserver.maptiler.com/nasa/", 3, 1, 1, ".png"],
-      ["https://tileserver.maptiler.com/nasa/", 4, 3, 7, ".png"],
-      ["https://tileserver.maptiler.com/nasa/", 5, 8, 14, ".png"],
-      ["https://api.maptiler.com/tiles/satellite/", 6, 12, 14, ".jpg" + key],
-      ["https://api.maptiler.com/tiles/satellite/", 8, 87, 132, ".jpg" + key],
-      ["https://api.maptiler.com/tiles/satellite/", 12, 1396, 2116, ".jpg" + key],
-    ];
-
+      [nasatiles, 3, 1, 1, ".png"],
+      [nasatiles, 4, 3, 7, ".png"],
+      [nasatiles, 5, 8, 14, ".png"]
+      ]
+    
+    if (key) {
+      maptiles.push(  
+        [satetiles, 6, 12, 14, ".jpg" + key],
+        [satetiles, 8, 87, 132, ".jpg" + key],
+        [satetiles, 12, 1396, 2116, ".jpg" + key],
+      );
+    }
     var svr = maptiles[Math.floor(Math.random() * maptiles.length)];
 
     var prefix = svr[0];

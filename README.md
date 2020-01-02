@@ -2,7 +2,7 @@ MAPSAW
 
 node express pug
 
-mapsaw map tiles from maptiler nasa https://tileserver.maptiler.com/nasa/
+mapsaw map tiles from maptiler https://tileserver.maptiler.com/nasa/
 
 edit .ENV 
 

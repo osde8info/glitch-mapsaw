@@ -1,5 +1,7 @@
 MAPSAW
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 node express pug
 
 mapsaw map tiles from maptiler nasa https://tileserver.maptiler.com/nasa/

@@ -1,14 +1,21 @@
 html
   head
-    title mapsaw (node express pug)
+    title MapSaw (a demo of node express pug & maptiler)
+    // ++ Google Tag Manager Head
+    script(src='dynamic/js/gtaghead.js')
+    // -- Google Tag Manager Head
     script(src='dragdrop.js')
-  body(class=className)
-    h1 MAPSAW 
-    h3 node express pug
-    p mapsaw map tiles from 
+  body
+    // ++ Google Tag Manager Body
+    noscript
+      iframe(src=mygtmurl height="0" width="0" style="display:none;visibility:hidden")
+    // -- Google Tag Manager Body
+    h1 MapSaw (a demo of node express pug & maptiler)
+    p map tiles from 
     a(href='https://tileserver.maptiler.com/nasa/') maptiler.com
     
     - var id = 100
+    
     p DEST
     table(style="border-collapse:collapse")
       each r in images1
@@ -32,8 +39,6 @@ html
                 ondragstart="on_dragstart(event)"
               )
 
-    script(src="https://www.googletagmanager.com/gtag/js?id=UA-747268-27"+mygtag)
-    script(src='gan.js')
     // include the Glitch button to show what the webpage is about 
     // and to make it easier for folks to view source and remix
     div(class="glitchButton" style="position:fixed;top:20px;right:20px;")

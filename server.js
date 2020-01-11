@@ -1,6 +1,12 @@
+const fs = require('node-fs')
 const express = require('express')
-
 const app = express()
+
+// get my google tag manager id from env
+const mygtmid = process.env.MY_GTM_ID
+
+// get my maptiler api key from env
+const maptilekey = process.env.MAPTILE_KEY
 
 app.locals.pretty = true
 
@@ -9,19 +15,13 @@ app.use(express.static('public'))
 
 app.set('view engine', 'pug')
 
-app.get('/', async (_, res) => {
-  const aqi = await getAqi()
-  res.render('index', aqi)
-})
-
 async function getAqi() {
-  let aqi = {}
+  let pugdata = {}
 
-  aqi.mygtag = 'xxx'
+  pugdata.mygtmurl = 'https://www.googletagmanager.com/ns.html?id=' + mygtmid
 
   const nasatiles = 'https://tileserver.maptiler.com/nasa/'
   const satetiles = 'https://api.maptiler.com/tiles/satellite/'
-  const maptilekey = process.env.MAPTILE_KEY
 
   const width = 5
   const height = 4
@@ -63,24 +63,38 @@ async function getAqi() {
       table.push(row)
     }
 
-    aqi.images1 = table
+    pugdata.images1 = table
 
-    aqi.images2 = []
+    pugdata.images2 = []
     row = []
 
     for (var i = 0; i < width; i++) {
       var x = Math.floor(Math.random() * width)
       var y = Math.floor(Math.random() * height)
-      row.push(aqi.images1[y][x])
-      aqi.images1[y][x] = ''
+      row.push(pugdata.images1[y][x])
+      pugdata.images1[y][x] = ''
     }
 
-    aqi.images2.push(row)
+    pugdata.images2.push(row)
 
-    return aqi
+    return pugdata
   } catch (error) {
     console.log(error)
   }
 }
+
+app.get('/', async (_, res) => {
+  const aqi = await getAqi()
+  console.log(new Date())
+  res.render('index', aqi)
+})
+
+app.get('/dynamic/js/gtaghead.js', async function(req, res) {
+  var js = fs.readFileSync('./googtagmgr/gtaghead.js')
+  js = js.toString().replace('GTM-XXXXXXX', mygtmid)
+  res.setHeader('content-type', 'text/javascript')
+  res.write(js)
+  res.end()
+})
 
 app.listen(process.env.PORT)

@@ -1,6 +1,7 @@
 dependencies:
-  axios: 0.19.0
+  axios: 0.19.1
   express: 4.17.1
+  node-fs: 0.1.7
   pug: 2.0.4
 packages:
   /@types/babel-types/7.0.7:
@@ -60,13 +61,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
-  /axios/0.19.0:
+  /axios/0.19.1:
     dependencies:
       follow-redirects: 1.5.10
-      is-buffer: 2.0.4
     dev: false
     resolution:
-      integrity: sha512-1uvKqKQta3KBxIz14F2v06AEHZ/dIoeKfbTRkK1E5oqjDnuEerLmYTgJB5AiQZHJcljpg1TuRzdjDR06qNk0DQ==
+      integrity: sha512-Yl+7nfreYKaLRvAvjNPkvfjnQHJM1yLBY3zhqAwcJSwR/6ETkanUgylgtIvkvz0xJ+p/vZuNw8X7Hnb7Whsbpw==
   /babel-runtime/6.26.0:
     dependencies:
       core-js: 2.6.11
@@ -378,12 +378,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-  /is-buffer/2.0.4:
-    dev: false
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
   /is-expression/3.0.0:
     dependencies:
       acorn: 4.0.13
@@ -489,6 +483,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
+  /node-fs/0.1.7:
+    dev: false
+    engines:
+      node: '>=0.1.97'
+    resolution:
+      integrity: sha1-MjI8zLRsn78PwRgS1FAhzDHTJbs=
   /object-assign/4.1.1:
     dev: false
     engines:
@@ -831,6 +831,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  axios: ^0.19.0
+  axios: ^0.19.1
   express: ^4.17.1
+  node-fs: ^0.1.7
   pug: ^2.0.4

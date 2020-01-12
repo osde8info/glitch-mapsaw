@@ -1,30 +1,22 @@
+const fs = require('node-fs')
 const express = require('express')
-
 const app = express()
 
-app.locals.pretty = true
+// ++ get my google tag manager id from env
+const mygtmid = process.env.MY_GTM_ID
+const mygtmurl = 'https://www.googletagmanager.com/ns.html?id=' + mygtmid
+// -- get my google tag manager id from env
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'))
+// get my maptiler api key from env
+const maptilekey = process.env.MAPTILE_KEY
+const nasatiles = 'https://tileserver.maptiler.com/nasa/'
+const satetiles = 'https://api.maptiler.com/tiles/satellite/'
 
-app.set('view engine', 'pug')
+async function getMaptiles() {
+  let pugdata = {}
 
-app.get('/', async (_, res) => {
-  const aqi = await getAqi()
-  res.render('index', aqi)
-})
-
-async function getAqi() {
-  let aqi = {}
-
-  aqi.mygtag = 'xxx'
-
-  const nasatiles = 'https://tileserver.maptiler.com/nasa/'
-  const satetiles = 'https://api.maptiler.com/tiles/satellite/'
-  const maptilekey = process.env.MAPTILE_KEY
-
-  const width = 5
   const height = 4
+  const width = 5
 
   var suffix = '.png'
 
@@ -32,7 +24,7 @@ async function getAqi() {
     var maptiles = [
       [nasatiles, 3, 1, 1, suffix],
       [nasatiles, 4, 3, 7, suffix],
-      [nasatiles, 5, 8, 14, suffix]
+      [nasatiles, 5, 8, 14, suffix],
     ]
 
     if (maptilekey) {
@@ -63,24 +55,45 @@ async function getAqi() {
       table.push(row)
     }
 
-    aqi.images1 = table
+    pugdata.images1 = table
 
-    aqi.images2 = []
+    pugdata.images2 = []
     row = []
 
     for (var i = 0; i < width; i++) {
       var x = Math.floor(Math.random() * width)
       var y = Math.floor(Math.random() * height)
-      row.push(aqi.images1[y][x])
-      aqi.images1[y][x] = ''
+      row.push(pugdata.images1[y][x])
+      pugdata.images1[y][x] = ''
     }
 
-    aqi.images2.push(row)
+    pugdata.images2.push(row)
 
-    return aqi
+    return pugdata
   } catch (error) {
     console.log(error)
   }
 }
+
+app.locals.pretty = true
+
+app.use(express.static('public'))
+
+app.set('view engine', 'pug')
+
+app.get('/', async (_, res) => {
+  const pugdata = await getMaptiles()
+  console.info(new Date())
+  pugdata.mygtmurl = mygtmurl
+  res.render('index', pugdata)
+})
+
+app.get('/dynamic/js/gtaghead.js', async function(req, res) {
+  var js = fs.readFileSync('./googtagmgr/gtaghead.js')
+  js = js.toString().replace('GTM-XXXXXXX', mygtmid)
+  res.setHeader('content-type', 'text/javascript')
+  res.write(js)
+  res.end()
+})
 
 app.listen(process.env.PORT)

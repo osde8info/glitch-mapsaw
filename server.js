@@ -5,15 +5,12 @@ const app = express()
 // ++ get my google tag manager id from env
 const mygtmid = process.env.MY_GTM_ID
 const mygtmurl = 'https://www.googletagmanager.com/ns.html?id=' + mygtmid
-
-//  pugdata.mygtmurl = mygtmurl
 // -- get my google tag manager id from env
-
-const nasatiles = 'https://tileserver.maptiler.com/nasa/'
-const satetiles = 'https://api.maptiler.com/tiles/satellite/'
 
 // get my maptiler api key from env
 const maptilekey = process.env.MAPTILE_KEY
+const nasatiles = 'https://tileserver.maptiler.com/nasa/'
+const satetiles = 'https://api.maptiler.com/tiles/satellite/'
 
 async function getMaptiles() {
   let pugdata = {}

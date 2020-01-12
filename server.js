@@ -2,29 +2,24 @@ const fs = require('node-fs')
 const express = require('express')
 const app = express()
 
-// get my google tag manager id from env
+// ++ get my google tag manager id from env
 const mygtmid = process.env.MY_GTM_ID
+const mygtmurl = 'https://www.googletagmanager.com/ns.html?id=' + mygtmid
+
+//  pugdata.mygtmurl = mygtmurl
+// -- get my google tag manager id from env
+
+const nasatiles = 'https://tileserver.maptiler.com/nasa/'
+const satetiles = 'https://api.maptiler.com/tiles/satellite/'
 
 // get my maptiler api key from env
 const maptilekey = process.env.MAPTILE_KEY
 
-app.locals.pretty = true
-
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'))
-
-app.set('view engine', 'pug')
-
-async function getAqi() {
+async function getMaptiles() {
   let pugdata = {}
 
-  pugdata.mygtmurl = 'https://www.googletagmanager.com/ns.html?id=' + mygtmid
-
-  const nasatiles = 'https://tileserver.maptiler.com/nasa/'
-  const satetiles = 'https://api.maptiler.com/tiles/satellite/'
-
-  const width = 5
   const height = 4
+  const width = 5
 
   var suffix = '.png'
 
@@ -32,7 +27,7 @@ async function getAqi() {
     var maptiles = [
       [nasatiles, 3, 1, 1, suffix],
       [nasatiles, 4, 3, 7, suffix],
-      [nasatiles, 5, 8, 14, suffix]
+      [nasatiles, 5, 8, 14, suffix],
     ]
 
     if (maptilekey) {
@@ -83,10 +78,17 @@ async function getAqi() {
   }
 }
 
+app.locals.pretty = true
+
+app.use(express.static('public'))
+
+app.set('view engine', 'pug')
+
 app.get('/', async (_, res) => {
-  const aqi = await getAqi()
-  console.log(new Date())
-  res.render('index', aqi)
+  const pugdata = await getMaptiles()
+  console.info(new Date())
+  pugdata.mygtmurl = mygtmurl
+  res.render('index', pugdata)
 })
 
 app.get('/dynamic/js/gtaghead.js', async function(req, res) {
